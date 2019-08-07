@@ -1,0 +1,381 @@
+<template>
+	<div id="tape">
+		<main>
+			<section id="section-1">
+				<div class="main-title">
+					<h1>Scroll the page...</h1>
+				</div>
+				<a class="nav-anchor bottom" href="#section-2"><span class="mdi mdi-chevron-down"></span></a>
+			</section>
+			<section id="section-2">
+				<a class="nav-anchor top" href="#section-1"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...or drag the tape measure!</h1>
+				</div>
+				<a class="nav-anchor bottom" href="#section-3"><span class="mdi mdi-chevron-down"></span></a>
+			</section>
+			<section id="section-3">
+				<a class="nav-anchor top" href="#section-2"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>It's responsive...</h1>
+					<small>(Resize the page)</small>
+				</div>
+				<a class="nav-anchor bottom" href="#section-4"><span class="mdi mdi-chevron-down"></span></a>
+			</section>
+			<section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section>
+			<section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section><section id="section-4">
+				<a class="nav-anchor top" href="#section-3"><span class="mdi mdi-chevron-up"></span></a>
+				<div class="main-title">
+					<h1>...and mobile-friendly<small>(ish)</small></h1>
+				</div>
+			</section>
+		</main>
+
+		<div id="progress">
+			<div id="tape-body"></div>
+			<div id="tape-measure"></div>
+		</div>
+	</div>
+</template>
+<script>
+export default {
+	name:'tapescroller',
+	data(){
+		return {
+			tapeBody: null,
+			tapeMeasure: null,
+			main: null,
+			touch: null,
+			offsetY: 0,
+			cache: {
+				viewport: {},
+				rects: [],
+				node: {}
+				}
+		}
+	},
+	methods:{
+		init() {
+			// update the cache and check scroll position
+			this.recache();
+			
+			// hide the scrollbar
+			const barWidth = this.getScrollBarWidth();
+			main.style.paddingRight = `${barWidth}px`;
+			
+			// allow dragging
+			tapeBody.addEventListener(touch ? "touchstart" : "mousedown", down);
+			
+			// throttle the scroll callback for performance
+			main.addEventListener("scroll", touch ? scrollCheck : throttle(scrollCheck, 10));
+			
+			// debounce the resize callback for performance
+			window.addEventListener("resize", debounce(recache, 50));
+		},
+		move(e) {
+			const x = (touch ? e.touches[0].pageY : e.pageY) - offsetY;
+			const offset = getScrollOffset();
+			const height = cache.document.height - cache.viewport.height;
+			const width = cache.viewport.height - cache.node.height;
+			const progress = (x / width) * height;
+			
+			main.scrollTop = progress;
+		},
+		up (e) {
+			main.style.scrollBehavior = "";
+			if (touch) {
+				document.removeEventListener("touchmove", move);
+				document.removeEventListener("touchend", up);
+				document.removeEventListener("touchcancel", up);
+			} else {
+				document.removeEventListener("mousemove", move);
+				document.removeEventListener("mouseup", up);
+			}	
+		},
+		down(e) {
+			recache();
+			
+			offsetY = (touch ? e.touches[0].pageY : e.pageY) - cache.node.top;
+			
+			// setting scrollTop/Left with "scroll-behavior: smooth" causes monster jank
+			main.style.scrollBehavior = "auto";
+			
+			if (touch) {
+				document.addEventListener("touchmove", move);
+				document.addEventListener("touchend", up);
+				document.addEventListener("touchcancel", up);
+			} else {
+				document.addEventListener("mousemove", move);
+				document.addEventListener("mouseup", up);
+			}	
+			
+			e.preventDefault();
+		},
+		recache() {
+			// cache the viewport dimensions
+			cache.viewport = {
+					width: window.innerWidth,
+					height: window.innerHeight
+			};
+			
+			cache.document = {
+				height: main.scrollHeight,
+				width: main.scrollWidth,
+			};
+			
+			cache.node = tapeBody.getBoundingClientRect();
+			
+			scrollCheck()
+		},
+		// check whether a node is at or above the horizontal halfway mark
+		scrollCheck() {
+			const offset = getScrollOffset();
+			const height = cache.document.height - cache.viewport.height;
+			const width = cache.viewport.height - cache.node.height;
+			const progress = (offset.y / height) * width;
+			
+			tapeBody.style.transform = `translate3d(0, ${progress}px,0)`;
+			tapeMeasure.style.height = `${progress}px`;
+		},
+		// get the scroll offsets
+		getScrollOffset() {
+			return {
+				x: main.scrollLeft,
+				y: main.scrollTop
+			}
+		},
+		throttle(fn, limit, context) {
+			let wait;
+			return function() {
+				context = context || this;
+				if (!wait) {
+					fn.apply(context, arguments);
+					wait = true;
+					return setTimeout(function() {
+						wait = false;
+					}, limit);
+				}
+			}
+		},
+		debounce(fn, limit, u) {
+			let e;
+			return function() {
+				const i = this;
+				const o = arguments;
+				const a = u && !e;
+				clearTimeout(e),
+					(e = setTimeout(function() {
+					(e = null), u || fn.apply(i, o);
+				}, limit)),
+					a && fn.apply(i, o);
+			}
+		},
+		getScrollBarWidth() {
+			const db = document.body;
+			const div = document.createElement("div");
+			let t = 0;
+			return div.style.cssText = "width: 100; height: 100; overflow: scroll; position: absolute; top: -9999;", document.body.appendChild(div), t = div.offsetWidth - div.clientWidth, document.body.removeChild(div), t
+		}	
+	},
+	mounted(){
+		// init
+		window.addEventListener("load", this.init)
+		this.tapeBody = document.getElementById("tape-body"),
+		this.tapeMeasure = document.getElementById("tape-measure")
+		this.main = document.getElementsByTagName('main')[0]
+		this.touch = function(){  
+			try {  
+				document.createEvent("TouchEvent","ontouchstart" in window ||(window.DocumentTouch && document instanceof DocumentTouch)	);  
+				return true;  
+			} catch (e) {  
+				return false;  
+			}  
+		}
+	}
+}
+
+</script>
+
+<style scoped>
+body {
+	overflow: hidden;
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+}
+
+main {
+	width: 100vw;
+	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	box-sizing: content-box;
+	scroll-behavior: smooth;
+}
+
+main section {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-size: cover;
+	background-position: center center;
+}
+
+main section:nth-child(1) {
+	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/wildtextures-dark-wood-board.jpg");
+}
+
+main section:nth-child(1) .nav-anchor {
+	animation: 1000ms ease 0ms forwards infinite notice-me;
+}
+
+main section:nth-child(2) {
+	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/DSC04170.jpg");
+}
+
+main section:nth-child(2) .main-title {
+	color: rgba(255, 255, 255, 0.85);
+}
+
+main section:nth-child(3) {
+	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/wildtextures-scrap-wooden-table-top.jpg");
+}
+
+main section:nth-child(4) {
+	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/Wood-Texture-6.jpg");
+}
+
+main section:nth-child(4) .main-title {
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.main-title {
+	font-size: 3vw;
+	font-family: "Alfa Slab One";
+	color: rgba(26, 26, 26, 0.85);
+	text-align: center;
+}
+
+h1 small {
+	font-size: 22px;
+}
+
+.nav-anchor {
+	position: absolute;
+	color: #fff;
+	font-size: 50px;
+}
+
+.nav-anchor.top {
+	top: 10px;
+}
+
+.nav-anchor.bottom {
+	bottom: 10px;
+}
+
+#progress {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 50px;
+	height: 100%;
+}
+
+#tape-body {
+	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/tape2.png");
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 50px;
+	height: 76px;
+	background-size: cover;
+	z-index: 10;
+	cursor: grab;
+}
+
+#tape-measure {
+	position: absolute;
+	right: 12px;
+	top: 0;
+	height: 0;
+	width: 24px;
+	background-color: #fada34;
+	z-index: 9;
+	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/tape2.jpg");
+	background-size: 100% auto;
+}
+
+@keyframes notice-me {
+	0%, 100% {
+		transform: translate3d(0, -5px, 0);
+	}
+
+	50% {
+		transform: translate3d(0, 5px, 0);
+	}
+}
+</style>

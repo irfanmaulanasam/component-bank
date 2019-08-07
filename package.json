@@ -1,0 +1,26 @@
+{
+  "name": "component-bank",
+  "version": "1.0.0",
+  "description": "this is the pilot project for yukbisnis to create component without using any library yet or minimizing library to take server faster to rendering",
+  "author": "irfan maulanasam",
+  "private": true,
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "5000"
+    }
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
