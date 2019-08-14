@@ -5,15 +5,15 @@
     </h2> -->
     <!-- <infiniteScrollv1/> -->
     <!-- <infiniteScrollv2/> -->
-    <navbarv1 :menu="menu"/>
+    <navbarv4/>
   </div>
 </template>
 <script>
 import infiniteScrollv1 from '../components/infiniteScroll/infiniteScrollv1.vue'
 import infiniteScrollv2 from '../components/infiniteScroll/infiniteScrollv2.vue'
 import sliderv9 from '../components/carousel/sliderv9.vue'
-import navbarv1 from '../components/navbar/navbarv1.vue'
-import navbarv3 from '../components/navbar/navbarv3.vue'
+// import navbarv1 from '../components/navbar/navbarv1.vue'
+import navbarv4 from '../components/navbar/navbarv4.vue'
 import menu from '../assets/menu.json'
 export default {
   name:'app',
@@ -21,8 +21,8 @@ export default {
     infiniteScrollv1,
     infiniteScrollv2,
     sliderv9,
-    navbarv1,
-    navbarv3,
+    // navbarv1,
+    navbarv4,
   },
   data(){
     return {

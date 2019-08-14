@@ -1,7 +1,7 @@
 <template>    
     <div class="tree-menu">
         <!-- <div class="label-wrapper" @click="toggleChildren" v-animation> -->
-        <div class="label-wrapper" @mouseover="toggleChildren" v-animation>
+        <div class="label-wrapper" @focus="toggleChildren" v-animation>
             <div :style="indent" :class="labelClasses">
                 <a href="#" v-if="nodes">+<strong> {{ label }} </strong></a>
                 <a href="#" v-else>{{ label }}</a>
