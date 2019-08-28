@@ -1,9 +1,22 @@
 <template>    
     <div class="tree-menu">
-        <!-- <div class="label-wrapper" @click="toggleChildren" v-animation> -->
-        <div class="label-wrapper" @focus="toggleChildren" v-animation>
+        <div v-if="clickable" class="label-wrapper" @click="toggleChildren" v-animation>
             <div :style="indent" :class="labelClasses">
-                <a href="#" v-if="nodes">+<strong> {{ label }} </strong></a>
+                <a href="#" v-if="nodes">
+                    <div class="arrow">
+                        <span></span>
+                    </div>
+                <strong> {{ label }} </strong></a>
+                <a href="#" v-else>{{ label }}</a>
+            </div>
+        </div>
+        <div v-else class="label-wrapper" @mouseover="toggleChildren" v-animation>
+            <div :style="indent" :class="labelClasses">
+                <a href="#" v-if="nodes">
+                    <div class="arrow">
+                        <span></span>
+                    </div>
+                <strong> {{ label }} </strong></a>
                 <a href="#" v-else>{{ label }}</a>
             </div>
         </div>
@@ -23,7 +36,7 @@
 <script>
 export default {
     name: 'tree-menu',
-  props: [ 'nodes', 'label', 'depth' ],
+  props: [ 'nodes', 'label', 'depth' ,'clickable'],
   data() {
      return {
        showChildren: false,
@@ -45,6 +58,26 @@ export default {
 }
 </script>
 <style scoped>
+/* start styling arrow  */
+.arrow{
+    position: relative;
+    top: +15px;
+    left: -15px;
+    /* transform: translate(-50%,-50%); */
+}
+.arrow span{
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid #06A8FF;
+    border-right: 2px solid #06A8FF;
+    transform: rotate(45deg);
+    margin: 0px;
+}
+
+/* end styling arrow */
+
+/*start styling of label */
 .label-wrapper {
     display: inline-block;
     padding-left: 2em;
@@ -83,4 +116,5 @@ export default {
         transform: scale(0);
     }
 }
+/* end styling label */
 </style>
